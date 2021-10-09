@@ -1,24 +1,26 @@
 <template>
   <v-app class="app">
-    <topbar />
+    <top-bar />
+    <div class="content"></div>
   </v-app>
 </template>
 
 <script>
-import topbar from "./components/topBar.vue";
-
+import topBar from "./components/topBar.vue";
 export default {
+  components: { topBar },
   name: "App",
-
-  components: {
-    topbar,
-  },
 };
 </script>
 
-<style>
+<style lang="scss">
 .app {
-  height: 400vh;
-  background-color: #1b1b1e;
+  width: 100vw;
+  .content {
+    background-color: #1b1b1e;
+    * {
+      color: white;
+    }
+  }
 }
 </style>

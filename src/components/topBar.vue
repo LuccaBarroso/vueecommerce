@@ -23,7 +23,6 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@import url("https://fonts.googleapis.com/css2?family=Birthstone+Bounce:wght@400;500&display=swap");
 .topbar {
   display: flex;
   width: 100vw;
