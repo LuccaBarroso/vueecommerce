@@ -1,26 +1,24 @@
 <template>
-  <v-app class="app">
-    <top-bar />
-    <div class="content"></div>
-  </v-app>
+  <div id="app">
+    <nav-bar />
+    <router-view />
+  </div>
 </template>
 
 <script>
-import topBar from "./components/topBar.vue";
+import NavBar from "./components/NavBar.vue";
+
 export default {
-  components: { topBar },
-  name: "App",
+  components: { NavBar },
 };
 </script>
 
 <style lang="scss">
-.app {
-  width: 100vw;
-  .content {
-    background-color: #1b1b1e;
-    * {
-      color: white;
-    }
-  }
+#app {
+  font-family: Avenir, Helvetica, Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-align: center;
+  color: #2c3e50;
 }
 </style>

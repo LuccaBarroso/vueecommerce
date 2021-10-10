@@ -1,7 +1,9 @@
 <template>
   <div>
     <button>
-      <v-icon color="white" small class="icons">fas fa-{{ icon }}</v-icon>
+      <v-icon style="color: white;" small class="icons"
+        >fas fa-{{ icon }}</v-icon
+      >
     </button>
   </div>
 </template>
