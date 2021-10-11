@@ -18,6 +18,7 @@ export default {
 
 <style lang="scss" scoped>
 .topbar {
+  z-index: 1;
   display: flex;
   width: 100vw;
   position: fixed;

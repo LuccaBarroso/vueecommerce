@@ -1,11 +1,16 @@
 <template>
-  <div class="home"></div>
+  <div class="home">
+    <product-display> </product-display>
+  </div>
 </template>
 
 <script>
-// @ is an alias to /src
+import productDisplay from "../components/productDisplay.vue";
 
 export default {
+  components: { productDisplay },
   name: "Home",
 };
 </script>
+
+<style lang="scss" scoped></style>
