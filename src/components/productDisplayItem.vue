@@ -1,5 +1,10 @@
 <template>
   <div class="item">
+    <img
+      :src="getImgPath()"
+      :alt="name"
+      :class="{ right: isOdd(), left: !isOdd() }"
+    />
     <div class="info" :class="{ odd: isOdd() }">
       <div class="qntbox">
         <div class="qnt">
@@ -39,14 +44,18 @@ export default {
     isOdd: function() {
       return this.id % 2 !== 0;
     },
+    getImgPath: function() {
+      return require("../assets/" + this.name + ".png");
+    },
   },
 };
 </script>
 
 <style lang="scss" scoped>
 .item {
+  z-index: 0 !important;
   width: 100%;
-  padding-bottom: 40vh;
+  padding-bottom: 30vw;
   padding-top: 10vh;
   position: relative;
   .info {
@@ -70,6 +79,18 @@ export default {
   }
   p {
     color: white;
+  }
+  img {
+    position: absolute;
+    z-index: 1 !important;
+    width: 50vw !important;
+    top: -10vh;
+  }
+  .left {
+    left: 10vw;
+  }
+  .right {
+    right: 10vw;
   }
 }
 .odd {
