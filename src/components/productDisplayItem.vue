@@ -8,9 +8,17 @@
     <div class="info" :class="{ odd: isOdd() }">
       <div class="qntbox">
         <div class="qnt">
-          <button>-</button>
+          <button>
+            <v-icon style="color: white;" x-small class="icons"
+              >fas fa-minus</v-icon
+            >
+          </button>
           <p>0</p>
-          <button>+</button>
+          <button>
+            <v-icon style="color: white;" x-small class="icons"
+              >fas fa-plus</v-icon
+            >
+          </button>
         </div>
         <div class="total">
           <p>0.00</p>
@@ -74,6 +82,17 @@ export default {
         flex-direction: row;
         align-items: center;
         justify-content: center;
+        button {
+          color: white;
+          background-color: transparent;
+          border: white solid 1px;
+          width: 20px;
+          height: 20px;
+          border-radius: 25px;
+          margin: 0 5px;
+          line-height: 50%;
+          text-align: center;
+        }
       }
     }
   }
@@ -87,7 +106,7 @@ export default {
     top: 0;
   }
   .left {
-    left: 0vw;
+    left: 10vw;
   }
   .right {
     right: 10vw;
