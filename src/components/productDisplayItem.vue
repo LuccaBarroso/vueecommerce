@@ -104,6 +104,7 @@ export default {
     z-index: 1 !important;
     width: 50vw !important;
     top: 0;
+    filter: drop-shadow(5px 5px 37px #000000);
   }
   .left {
     left: 10vw;
