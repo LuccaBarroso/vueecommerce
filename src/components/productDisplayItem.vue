@@ -84,10 +84,10 @@ export default {
     position: absolute;
     z-index: 1 !important;
     width: 50vw !important;
-    top: -10vh;
+    top: 0;
   }
   .left {
-    left: 10vw;
+    left: 0vw;
   }
   .right {
     right: 10vw;
