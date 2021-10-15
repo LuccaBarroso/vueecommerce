@@ -63,7 +63,7 @@ export default {
 .item {
   z-index: 0 !important;
   width: 100%;
-  padding-bottom: 30vw;
+  padding-bottom: 35vw;
   padding-top: 10vh;
   position: relative;
   .info {
