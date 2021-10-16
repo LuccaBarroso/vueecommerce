@@ -13,7 +13,7 @@
               >fas fa-minus</v-icon
             >
           </button>
-          <p>0</p>
+          <p>{{ getCartItemQntById(id) }}</p>
           <button>
             <v-icon style="color: white;" x-small class="icons"
               >fas fa-plus</v-icon
@@ -21,7 +21,7 @@
           </button>
         </div>
         <div class="total">
-          <p>0.00</p>
+          <p>{{ (getCartItemQntById(id) * price).toFixed(2) }}</p>
         </div>
       </div>
       <v-divider></v-divider>
@@ -33,6 +33,8 @@
 </template>
 
 <script>
+import { mapGetters } from "vuex";
+
 export default {
   props: {
     id: {
@@ -55,6 +57,9 @@ export default {
     getImgPath: function() {
       return require("../assets/" + this.name + ".png");
     },
+  },
+  computed: {
+    ...mapGetters(["getCartItemQntById"]),
   },
 };
 </script>
