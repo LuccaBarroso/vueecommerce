@@ -19,4 +19,40 @@ export default new Vuex.Store({
       return 0;
     },
   },
+  mutations: {
+    addCartItem(state, id) {
+      state.cart.push({ productID: id, qnt: 1 });
+    },
+    deleteCartItem(state, id) {
+      state.cart = state.cart.filter((product) => product.productID != id);
+    },
+    incrementToCartItem(state, id) {
+      let cartItem = state.cart.find((item) => item.productID === id);
+      let itemIndex = state.cart.indexOf(cartItem);
+      cartItem.qnt++;
+      state.cart[itemIndex] = cartItem;
+    },
+    decrementToCartItem(state, id) {
+      let cartItem = state.cart.find((item) => item.productID === id);
+      let itemIndex = state.cart.indexOf(cartItem);
+      cartItem.qnt--;
+      state.cart[itemIndex] = cartItem;
+    },
+  },
+  actions: {
+    addProduct({ commit, getters }, id) {
+      if (getters.getCartItemQntById(id) !== 0) {
+        commit("incrementToCartItem", id);
+      } else {
+        commit("addCartItem", id);
+      }
+    },
+    subProduct({ commit, getters }, id) {
+      if (getters.getCartItemQntById(id) > 1) {
+        commit("decrementToCartItem", id);
+      } else {
+        commit("deleteCartItem", id);
+      }
+    },
+  },
 });

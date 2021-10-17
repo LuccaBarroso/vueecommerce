@@ -8,13 +8,13 @@
     <div class="info" :class="{ odd: isOdd() }">
       <div class="qntbox">
         <div class="qnt">
-          <button>
+          <button @click="sub()">
             <v-icon style="color: white;" x-small class="icons"
               >fas fa-minus</v-icon
             >
           </button>
           <p>{{ getCartItemQntById(id) }}</p>
-          <button>
+          <button @click="add()">
             <v-icon style="color: white;" x-small class="icons"
               >fas fa-plus</v-icon
             >
@@ -33,7 +33,7 @@
 </template>
 
 <script>
-import { mapGetters } from "vuex";
+import { mapGetters, mapActions } from "vuex";
 
 export default {
   props: {
@@ -51,11 +51,22 @@ export default {
     },
   },
   methods: {
+    ...mapActions(["addProduct", "subProduct"]),
     isOdd: function() {
       return this.id % 2 !== 0;
     },
     getImgPath: function() {
       return require("../assets/" + this.name + ".png");
+    },
+    add: function() {
+      console.log("add pressed");
+      this.addProduct(this.id);
+    },
+    sub: function() {
+      if (this.getCartItemQntById(this.id) != 0) {
+        console.log("sub pressed");
+        this.subProduct(this.id);
+      }
     },
   },
   computed: {
@@ -80,6 +91,7 @@ export default {
     padding: 10px;
     justify-content: right;
     .qntbox {
+      z-index: 2;
       flex-direction: column;
       padding-top: 6vh;
       .qnt {
