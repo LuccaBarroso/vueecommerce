@@ -21,6 +21,15 @@ export default new Vuex.Store({
     getProductInfoById: (state) => (id) => {
       return state.products.find((product) => product.id === id);
     },
+    getCartTotal: (state, getters) => {
+      console.log("TESTE");
+      return state.cart.reduce(function(acc, product) {
+        return (
+          acc +
+          product.qnt * getters.getProductInfoById(product.productID).price
+        );
+      }, 0);
+    },
   },
   mutations: {
     addCartItem(state, id) {

@@ -10,15 +10,23 @@
       <template v-for="item in cart">
         <cart-item :key="item.id" :item="item"></cart-item>
       </template>
+      <tr>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td class="totalPrice">{{ getCartTotal.toFixed(2) }}$</td>
+      </tr>
     </table>
   </div>
 </template>
 
 <script>
 import CartItem from "./CartItem.vue";
+import { mapGetters } from "vuex";
 export default {
   components: { CartItem },
   computed: {
+    ...mapGetters(["getCartTotal"]),
     cart() {
       return this.$store.state.cart;
     },
@@ -39,5 +47,10 @@ div {
       border: 9px solid #1b1b1e;
     }
   }
+}
+.totalPrice {
+  background-color: #27272b;
+  padding: 1vw;
+  border: 9px solid #1b1b1e;
 }
 </style>
