@@ -18,6 +18,9 @@ export default new Vuex.Store({
       if (curItem) return curItem.qnt;
       return 0;
     },
+    getProductInfoById: (state) => (id) => {
+      return state.products.find((product) => product.id === id);
+    },
   },
   mutations: {
     addCartItem(state, id) {
