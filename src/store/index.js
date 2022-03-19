@@ -19,11 +19,9 @@ export default new Vuex.Store({
       return state.products.find(product => product.id === id);
     },
     getProducts: state => {
-      console.log("hey");
       return state.products;
     },
     getCartTotal: (state, getters) => {
-      console.log("TESTE");
       return state.cart.reduce(function(acc, product) {
         return acc + product.qnt * getters.getProductInfoById(product.id).price;
       }, 0);
@@ -57,7 +55,6 @@ export default new Vuex.Store({
         cnt++;
         return item;
       });
-      console.log(state.products);
     }
   },
   actions: {
