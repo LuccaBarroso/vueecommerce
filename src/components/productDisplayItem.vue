@@ -124,6 +124,8 @@ export default {
     width: 50vw !important;
     top: 0;
     filter: drop-shadow(5px 5px 37px #000000);
+    max-width: 800px;
+    overflow: hidden;
   }
   .left {
     left: 10vw;
@@ -143,7 +145,12 @@ export default {
     }
   }
   img {
-    margin: 15vw 15vw 0 20vw;
+    margin: 15vw 15vw 0 10vw;
+  }
+}
+@media (max-width: 700px) {
+  * {
+    font-size: 1.7ch;
   }
 }
 </style>
