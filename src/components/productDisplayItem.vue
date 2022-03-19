@@ -136,4 +136,14 @@ export default {
   flex-direction: row-reverse;
   right: 0;
 }
+@media (max-width: 500px) {
+  .item {
+    .info {
+      width: 80%;
+    }
+  }
+  img {
+    margin: 15vw 15vw 0 20vw;
+  }
+}
 </style>

@@ -3,6 +3,7 @@
     <product-display />
     <separation-bar v-if="!isCartEmpty" />
     <cart-display v-if="!isCartEmpty" />
+    <Footer />
   </div>
 </template>
 
@@ -10,11 +11,12 @@
 import CartDisplay from "../components/CartDisplay.vue";
 import productDisplay from "../components/productDisplay.vue";
 import SeparationBar from "../components/SeparationBar.vue";
+import Footer from "../components/footer.vue";
 import { mapGetters } from "vuex";
 // import separationBar from "../components/SeparationBar.vue";
 
 export default {
-  components: { productDisplay, SeparationBar, CartDisplay },
+  components: { productDisplay, SeparationBar, CartDisplay, Footer },
   computed: {
     ...mapGetters(["isCartEmpty"])
   }
