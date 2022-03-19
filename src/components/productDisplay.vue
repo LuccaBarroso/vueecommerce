@@ -1,6 +1,6 @@
 <template>
   <ul class="products">
-    <li v-for="item in products" :key="item.id">
+    <li v-for="item in getProducts" :key="item.id">
       <product-display-item v-bind="item" />
     </li>
   </ul>
@@ -8,11 +8,12 @@
 
 <script>
 import productDisplayItem from "./productDisplayItem.vue";
+import { mapGetters } from "vuex";
 export default {
-  components: { productDisplayItem },
-  data() {
-    return { products: this.$store.state.products };
+  computed: {
+    ...mapGetters(["getProducts"])
   },
+  components: { productDisplayItem }
 };
 </script>
 

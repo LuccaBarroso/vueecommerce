@@ -39,16 +39,16 @@ export default {
   props: {
     id: {
       type: Number,
-      required: true,
+      required: true
     },
     name: {
       type: String,
-      required: true,
+      required: true
     },
     price: {
       type: Number,
-      required: true,
-    },
+      required: true
+    }
   },
   methods: {
     ...mapActions(["addProduct", "subProduct"]),
@@ -56,22 +56,23 @@ export default {
       return this.id % 2 !== 0;
     },
     getImgPath: function() {
-      return require("../assets/" + this.name + ".png");
+      return require("../assets/" + this.name.toLowerCase() + ".png");
     },
     add: function() {
       console.log("add pressed");
       this.addProduct(this.id);
+      console.log(this.id);
     },
     sub: function() {
       if (this.getCartItemQntById(this.id) != 0) {
         console.log("sub pressed");
         this.subProduct(this.id);
       }
-    },
+    }
   },
   computed: {
-    ...mapGetters(["getCartItemQntById"]),
-  },
+    ...mapGetters(["getCartItemQntById"])
+  }
 };
 </script>
 

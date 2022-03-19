@@ -1,55 +1,64 @@
 import Vue from "vue";
 import Vuex from "vuex";
+import * as api from "../utils/ApiCalls.js";
 
 Vue.use(Vuex);
 
 export default new Vuex.Store({
   state: {
-    products: [
-      { id: 0, name: "bottle", price: 20.5 },
-      { id: 1, name: "can", price: 5.0 },
-      { id: 2, name: "cap", price: 24.1 },
-    ],
-    cart: [{ productID: 1, qnt: 1 }],
+    products: [],
+    cart: []
   },
   getters: {
-    getCartItemQntById: (state) => (id) => {
-      const curItem = state.cart.find((item) => item.productID === id);
+    getCartItemQntById: state => id => {
+      const curItem = state.cart.find(item => item.id === id);
       if (curItem) return curItem.qnt;
       return 0;
     },
-    getProductInfoById: (state) => (id) => {
-      return state.products.find((product) => product.id === id);
+    getProductInfoById: state => id => {
+      return state.products.find(product => product.id === id);
+    },
+    getProducts: state => {
+      console.log("hey");
+      return state.products;
     },
     getCartTotal: (state, getters) => {
       console.log("TESTE");
       return state.cart.reduce(function(acc, product) {
-        return (
-          acc +
-          product.qnt * getters.getProductInfoById(product.productID).price
-        );
+        return acc + product.qnt * getters.getProductInfoById(product.id).price;
       }, 0);
-    },
+    }
   },
   mutations: {
     addCartItem(state, id) {
-      state.cart.push({ productID: id, qnt: 1 });
+      state.cart.push({ id: id, qnt: 1 });
     },
     deleteCartItem(state, id) {
-      state.cart = state.cart.filter((product) => product.productID != id);
+      state.cart = state.cart.filter(product => product.id != id);
     },
     incrementToCartItem(state, id) {
-      let cartItem = state.cart.find((item) => item.productID === id);
+      let cartItem = state.cart.find(item => item.id === id);
       let itemIndex = state.cart.indexOf(cartItem);
       cartItem.qnt++;
       state.cart[itemIndex] = cartItem;
     },
     decrementToCartItem(state, id) {
-      let cartItem = state.cart.find((item) => item.productID === id);
+      let cartItem = state.cart.find(item => item.id === id);
       let itemIndex = state.cart.indexOf(cartItem);
       cartItem.qnt--;
       state.cart[itemIndex] = cartItem;
     },
+    setProducts(state, products) {
+      console.log("PRODUCTS");
+      let cnt = 0;
+      state.products = products.map(item => {
+        delete item._id;
+        item.id = cnt;
+        cnt++;
+        return item;
+      });
+      console.log(state.products);
+    }
   },
   actions: {
     addProduct({ commit, getters }, id) {
@@ -66,5 +75,10 @@ export default new Vuex.Store({
         commit("deleteCartItem", id);
       }
     },
-  },
+    fetchProducts({ commit }) {
+      api.getProducts().then(products => {
+        commit("setProducts", products);
+      });
+    }
+  }
 });
