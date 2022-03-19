@@ -1,18 +1,33 @@
 <template>
   <div class="topbar">
     <div class="logo"><h1>SodaCola</h1></div>
-    <v-divider></v-divider>
-    <nav-bar-btn icon="shopping-cart" />
-    <nav-bar-btn icon="sign-out-alt" />
-    <nav-bar-btn icon="sign-in-alt" />
-    <nav-bar-btn icon="user" />
+    <div class="spa"></div>
+    <nav-bar-btn v-if="!isCartEmpty" icon="shopping-cart" id="cart" />
+    <nav-bar-btn icon="sign-out-alt" v-on:clicked="signOut" />
+    <nav-bar-btn icon="sign-in-alt" v-on:clicked="signIn" />
+    <nav-bar-btn icon="user" v-on:clicked="profile" />
   </div>
 </template>
 
 <script>
 import NavBarBtn from "./NavBarBtn.vue";
+import { mapGetters } from "vuex";
 export default {
   components: { NavBarBtn },
+  methods: {
+    signOut() {
+      alert("todo");
+    },
+    signIn() {
+      alert("todo");
+    },
+    profile() {
+      alert("todo");
+    }
+  },
+  computed: {
+    ...mapGetters(["isCartEmpty"])
+  }
 };
 </script>
 
@@ -26,6 +41,9 @@ export default {
   background-color: #27272b;
   padding: 0 15px 0 10px;
   align-items: center;
+  .spa {
+    width: 100%;
+  }
   .logo {
     color: white;
     font-family: "Birthstone Bounce", cursive;

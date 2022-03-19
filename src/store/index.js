@@ -78,6 +78,12 @@ export default new Vuex.Store({
       api.getProducts().then(products => {
         commit("setProducts", products);
       });
+    },
+    // eslint-disable-next-line no-unused-vars
+    scrollToId({ commit }, id) {
+      var element = document.getElementById("cart");
+      console.log(element);
+      element.scrollIntoView();
     }
   }
 });

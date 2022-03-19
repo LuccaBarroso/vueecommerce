@@ -24,7 +24,7 @@
           <p>{{ (getCartItemQntById(id) * price).toFixed(2) }}$</p>
         </div>
       </div>
-      <v-divider></v-divider>
+      <div class="spa"></div>
       <div class="price">
         <p>{{ price.toFixed(2) }}$</p>
       </div>
@@ -92,6 +92,9 @@ export default {
     padding: 10px;
     justify-content: right;
     font-size: 2.1ch;
+    .spa {
+      width: 100%;
+    }
     .qntbox {
       z-index: 2;
       flex-direction: column;
