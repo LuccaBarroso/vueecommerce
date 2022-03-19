@@ -25,6 +25,9 @@ export default new Vuex.Store({
       return state.cart.reduce(function(acc, product) {
         return acc + product.qnt * getters.getProductInfoById(product.id).price;
       }, 0);
+    },
+    isCartEmpty: state => {
+      return state.cart.length == 0;
     }
   },
   mutations: {
@@ -47,7 +50,6 @@ export default new Vuex.Store({
       state.cart[itemIndex] = cartItem;
     },
     setProducts(state, products) {
-      console.log("PRODUCTS");
       let cnt = 0;
       state.products = products.map(item => {
         delete item._id;

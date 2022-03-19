@@ -21,12 +21,12 @@
           </button>
         </div>
         <div class="total">
-          <p>{{ (getCartItemQntById(id) * price).toFixed(2) }}</p>
+          <p>{{ (getCartItemQntById(id) * price).toFixed(2) }}$</p>
         </div>
       </div>
       <v-divider></v-divider>
       <div class="price">
-        <p>{{ price.toFixed(2) }}</p>
+        <p>{{ price.toFixed(2) }}$</p>
       </div>
     </div>
   </div>
@@ -59,13 +59,13 @@ export default {
       return require("../assets/" + this.name.toLowerCase() + ".png");
     },
     add: function() {
-      console.log("add pressed");
+      // console.log("add pressed");
       this.addProduct(this.id);
-      console.log(this.id);
+      // console.log(this.id);
     },
     sub: function() {
       if (this.getCartItemQntById(this.id) != 0) {
-        console.log("sub pressed");
+        // console.log("sub pressed");
         this.subProduct(this.id);
       }
     }
@@ -91,6 +91,7 @@ export default {
     display: flex;
     padding: 10px;
     justify-content: right;
+    font-size: 2.1ch;
     .qntbox {
       z-index: 2;
       flex-direction: column;

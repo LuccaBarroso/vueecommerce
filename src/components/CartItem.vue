@@ -1,14 +1,12 @@
 <template>
   <tr>
     <td class="product">
-      {{ getProductInfoById(item.productID).name }}
+      {{ getProductInfoById(item.id).name }}
     </td>
     <td>{{ item.qnt }}</td>
-    <td>{{ getProductInfoById(item.productID).price.toFixed(2) + "$" }}</td>
+    <td>{{ getProductInfoById(item.id).price.toFixed(2) + "$" }}</td>
     <td>
-      {{
-        (getProductInfoById(item.productID).price * item.qnt).toFixed(2) + "$"
-      }}
+      {{ (getProductInfoById(item.id).price * item.qnt).toFixed(2) + "$" }}
     </td>
   </tr>
 </template>
@@ -20,12 +18,12 @@ export default {
   props: {
     item: {
       type: Object,
-      required: true,
-    },
+      required: true
+    }
   },
   computed: {
-    ...mapGetters(["getProductInfoById"]),
-  },
+    ...mapGetters(["getProductInfoById"])
+  }
 };
 </script>
 

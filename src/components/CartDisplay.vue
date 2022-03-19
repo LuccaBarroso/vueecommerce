@@ -29,14 +29,15 @@ export default {
     ...mapGetters(["getCartTotal"]),
     cart() {
       return this.$store.state.cart;
-    },
-  },
+    }
+  }
 };
 </script>
 
 <style scoped lang="scss">
 div {
   display: flex;
+  font-size: 2.1ch;
   justify-content: center;
   .cart {
     width: 90%;
