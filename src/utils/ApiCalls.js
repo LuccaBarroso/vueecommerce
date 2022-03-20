@@ -12,3 +12,12 @@ export async function getProducts() {
     console.log(error);
   }
 }
+
+export async function login(data) {
+  try {
+    const response = await axios.post(apiUrl + "/user/login", data);
+    return response.data;
+  } catch (error) {
+    return error.response.data;
+  }
+}

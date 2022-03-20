@@ -8,7 +8,9 @@ export default new Vuex.Store({
   state: {
     products: [],
     cart: [],
-    popup: ""
+    popup: "",
+    user: {},
+    logInRes: ""
   },
   getters: {
     getCartItemQntById: state => id => {
@@ -32,6 +34,9 @@ export default new Vuex.Store({
     },
     getCurPopup: state => {
       return state.popup;
+    },
+    getlogInRes: state => {
+      return state.logInRes;
     }
   },
   mutations: {
@@ -64,6 +69,9 @@ export default new Vuex.Store({
     },
     setPopup(state, pop) {
       state.popup = pop;
+    },
+    setlogInRes(state, logInRes) {
+      state.logInRes = logInRes;
     }
   },
   actions: {
@@ -86,6 +94,20 @@ export default new Vuex.Store({
         commit("setProducts", products);
       });
     },
+    login({ commit }, data) {
+      api.login(data).then(res => {
+        if (res.user) {
+          console.log("login success");
+        } else {
+          console.log("here");
+          console.log(res);
+          commit("setlogInRes", res.message);
+        }
+      });
+    },
+    // register({ commit }, data) {
+    //   api.register(data);
+    // },
     // eslint-disable-next-line no-unused-vars
     scrollToId({ commit }, id) {
       var element = document.getElementById("cart");

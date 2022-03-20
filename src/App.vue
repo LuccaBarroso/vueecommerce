@@ -1,14 +1,14 @@
 <template>
   <div id="app">
-    <PopUps />
+    <pop-ups />
     <nav-bar />
     <router-view />
   </div>
 </template>
 
 <script>
+import PopUps from "./components/Popups.vue";
 import NavBar from "./components/NavBar.vue";
-import PopUps from "./components/PopUps.vue";
 import { mapActions } from "vuex";
 
 export default {

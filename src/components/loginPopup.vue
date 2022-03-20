@@ -13,43 +13,80 @@
     >
       Sign In
     </button>
-    <div class="form">
-      <div v-if="isRegister">
-        <label for="Name"><p>Name</p></label>
-        <input type="text" id="name" name="name" />
+    <form @submit.prevent="doAction">
+      <div class="form">
+        <div v-if="isRegister">
+          <label for="Name"><p>Name</p></label>
+          <input type="text" v-model="name" id="name" name="name" />
+        </div>
+        <div>
+          <label for="Email"><p>Email</p></label>
+          <input type="text" v-model="email" id="email" name="email" />
+        </div>
+        <div>
+          <label for="pass"><p>Password</p></label>
+          <input type="password" v-model="password" id="pass" name="pass" />
+        </div>
+        <div v-if="isRegister">
+          <label for="passConfirm"><p>Confirm Password</p></label>
+          <input
+            type="password"
+            v-model="passwordConfirm"
+            id="passConfirm"
+            name="passConfirm"
+          />
+        </div>
+        <div v-if="getlogInRes != ''">
+          <p>{{ getlogInRes }}</p>
+          <span class="close" @click="hideWarning">&times;</span>
+        </div>
       </div>
-      <div>
-        <label for="Email"><p>Email</p></label>
-        <input type="text" id="email" name="email" />
-      </div>
-      <div>
-        <label for="pass"><p>Password</p></label>
-        <input type="password" id="pass" name="pass" />
-      </div>
-      <div v-if="isRegister">
-        <label for="passConfirm"><p>Confirm Password</p></label>
-        <input type="password" id="passConfirm" name="passConfirm" />
-      </div>
-    </div>
 
-    <button class="bottomBtns">{{ isRegister ? "Sign In" : "Log In" }}</button>
+      <button class="bottomBtns" type="submit" @click="doAction">
+        {{ isRegister ? "Sign In" : "Log In" }}
+      </button>
+    </form>
   </div>
 </template>
 
 <script>
-import { mapMutations } from "vuex";
+import { mapMutations, mapActions, mapGetters } from "vuex";
 
 export default {
   data() {
     return {
-      isRegister: false
+      isRegister: false,
+      name: "",
+      email: "",
+      password: "",
+      passwordConfirm: ""
     };
   },
   methods: {
+    ...mapActions(["login"]),
     ...mapMutations(["setPopup"]),
     close: function() {
       this.setPopup("");
+    },
+    hideWarning: function() {
+      this.message = "";
+    },
+    doAction: function() {
+      const data = {
+        name: this.name,
+        email: this.email,
+        password: this.password,
+        passwordConfirm: this.passwordConfirm
+      };
+      if (!this.isRegister) {
+        delete data.name;
+        delete data.passwordConfirm;
+      }
+      this.login(data);
     }
+  },
+  computed: {
+    ...mapGetters(["getlogInRes"])
   }
 };
 </script>
@@ -93,13 +130,16 @@ export default {
   .form {
     display: flex;
     flex-direction: column;
+    justify-content: center;
+    align-items: center;
     div {
       padding-top: 10px;
       display: flex;
       align-items: center;
       justify-content: right;
     }
-    label {
+    label,
+    p {
       color: white;
       padding-right: 5px;
     }
@@ -108,6 +148,9 @@ export default {
       background: #c4c4c4;
       padding: 2px;
       margin-right: 10%;
+    }
+    span {
+      font-size: 14px;
     }
   }
   .selected {
