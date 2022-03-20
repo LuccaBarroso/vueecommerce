@@ -7,7 +7,8 @@ Vue.use(Vuex);
 export default new Vuex.Store({
   state: {
     products: [],
-    cart: []
+    cart: [],
+    popup: ""
   },
   getters: {
     getCartItemQntById: state => id => {
@@ -28,6 +29,9 @@ export default new Vuex.Store({
     },
     isCartEmpty: state => {
       return state.cart.length == 0;
+    },
+    getCurPopup: state => {
+      return state.popup;
     }
   },
   mutations: {
@@ -57,6 +61,9 @@ export default new Vuex.Store({
         cnt++;
         return item;
       });
+    },
+    setPopup(state, pop) {
+      state.popup = pop;
     }
   },
   actions: {

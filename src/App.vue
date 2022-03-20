@@ -1,5 +1,6 @@
 <template>
   <div id="app">
+    <PopUps />
     <nav-bar />
     <router-view />
   </div>
@@ -7,10 +8,11 @@
 
 <script>
 import NavBar from "./components/NavBar.vue";
+import PopUps from "./components/PopUps.vue";
 import { mapActions } from "vuex";
 
 export default {
-  components: { NavBar },
+  components: { NavBar, PopUps },
   methods: {
     ...mapActions(["fetchProducts"])
   },

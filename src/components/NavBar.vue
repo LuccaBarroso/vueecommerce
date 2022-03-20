@@ -11,15 +11,16 @@
 
 <script>
 import NavBarBtn from "./NavBarBtn.vue";
-import { mapGetters } from "vuex";
+import { mapGetters, mapMutations } from "vuex";
 export default {
   components: { NavBarBtn },
   methods: {
+    ...mapMutations(["setPopup"]),
     signOut() {
       alert("todo");
     },
     signIn() {
-      alert("todo");
+      this.setPopup("login");
     },
     profile() {
       alert("todo");
