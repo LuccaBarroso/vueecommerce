@@ -14,35 +14,39 @@
       Sign In
     </button>
     <form @submit.prevent="doAction">
-      <div class="form">
-        <div v-if="isRegister">
-          <label for="Name"><p>Name</p></label>
-          <input type="text" v-model="name" id="name" name="name" />
-        </div>
-        <div>
-          <label for="Email"><p>Email</p></label>
-          <input type="text" v-model="email" id="email" name="email" />
-        </div>
-        <div>
-          <label for="pass"><p>Password</p></label>
-          <input type="password" v-model="password" id="pass" name="pass" />
-        </div>
-        <div v-if="isRegister">
-          <label for="passConfirm"><p>Confirm Password</p></label>
-          <input
-            type="password"
-            v-model="passwordConfirm"
-            id="passConfirm"
-            name="passConfirm"
-          />
-        </div>
-        <div v-if="getlogInRes != ''">
-          <p>{{ getlogInRes }}</p>
-          <span class="close" @click="hideWarning">&times;</span>
-        </div>
+      <div v-if="isRegister" :class="[getlogInRes == 'loading' ? 'hide' : '']">
+        <label for="Name"><p>Name</p></label>
+        <input type="text" v-model="name" id="name" name="name" />
+      </div>
+      <div :class="[getlogInRes == 'loading' ? 'hide' : '']">
+        <label for="Email"><p>Email</p></label>
+        <input type="text" v-model="email" id="email" name="email" />
+      </div>
+      <div :class="[getlogInRes == 'loading' ? 'hide' : '']">
+        <label for="pass"><p>Password</p></label>
+        <input type="password" v-model="password" id="pass" name="pass" />
+      </div>
+      <div v-if="isRegister" :class="[getlogInRes == 'loading' ? 'hide' : '']">
+        <label for="passConfirm"><p>Confirm Password</p></label>
+        <input
+          type="password"
+          v-model="passwordConfirm"
+          id="passConfirm"
+          name="passConfirm"
+        />
       </div>
 
-      <button class="bottomBtns" type="submit" @click="doAction">
+      <div
+        :class="['warning', getlogInRes == 'loading' ? 'hide' : '']"
+        v-if="getlogInRes != ''"
+      >
+        <p>{{ getlogInRes }}</p>
+        <span class="close" @click="hideWarning">&times;</span>
+      </div>
+
+      <loading v-if="getlogInRes == 'loading'" />
+
+      <button class="bottomBtns" type="submit">
         {{ isRegister ? "Sign In" : "Log In" }}
       </button>
     </form>
@@ -50,9 +54,13 @@
 </template>
 
 <script>
+import loading from "./loading";
 import { mapMutations, mapActions, mapGetters } from "vuex";
 
 export default {
+  components: {
+    loading
+  },
   data() {
     return {
       isRegister: false,
@@ -63,15 +71,17 @@ export default {
     };
   },
   methods: {
-    ...mapActions(["login"]),
-    ...mapMutations(["setPopup"]),
+    ...mapActions(["login", "register"]),
+    ...mapMutations(["setPopup", "setlogInRes"]),
     close: function() {
       this.setPopup("");
+      this.hideWarning();
     },
     hideWarning: function() {
-      this.message = "";
+      this.setlogInRes("");
     },
     doAction: function() {
+      this.changeLoading(true);
       const data = {
         name: this.name,
         email: this.email,
@@ -81,8 +91,17 @@ export default {
       if (!this.isRegister) {
         delete data.name;
         delete data.passwordConfirm;
+        this.login(data);
+      } else {
+        this.register(data);
       }
-      this.login(data);
+    },
+    changeLoading(bool) {
+      if (bool) {
+        this.setlogInRes("loading");
+      } else if (this.getlogInRes == "loading") {
+        this.setLogInRes("");
+      }
     }
   },
   computed: {
@@ -120,23 +139,30 @@ export default {
     color: #fff;
   }
   .bottomBtns {
+    align-self: center;
     background-color: #96031a;
-    padding: 10px 40px;
+    padding: 10px 100px;
+    width: 50%;
     position: relative;
     top: 40px;
     color: #fff;
   }
 
-  .form {
+  form {
     display: flex;
     flex-direction: column;
-    justify-content: center;
-    align-items: center;
+    .hide {
+      display: none;
+    }
     div {
       padding-top: 10px;
       display: flex;
       align-items: center;
       justify-content: right;
+    }
+    .warning {
+      justify-content: center;
+      align-items: center;
     }
     label,
     p {

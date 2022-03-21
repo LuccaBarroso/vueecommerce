@@ -21,3 +21,12 @@ export async function login(data) {
     return error.response.data;
   }
 }
+
+export async function register(data) {
+  try {
+    const response = await axios.post(apiUrl + "/user/signup", data);
+    return response.data;
+  } catch (error) {
+    return error.response.data;
+  }
+}

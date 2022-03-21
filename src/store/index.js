@@ -96,11 +96,27 @@ export default new Vuex.Store({
     },
     login({ commit }, data) {
       api.login(data).then(res => {
-        if (res.user) {
+        console.log(res);
+        if (res.data.user) {
           console.log("login success");
+          commit("setlogInRes", "Success");
         } else {
-          console.log("here");
-          console.log(res);
+          if (res.message) {
+            commit("setlogInRes", res.message);
+          } else {
+            commit("setlogInRes", "Sorry! something went wrong!");
+          }
+        }
+      });
+    },
+    register({ commit }, data) {
+      api.register(data).then(res => {
+        console.log(res);
+        if (res.data && res.data.user) {
+          console.log("register success");
+          commit("setlogInRes", "Success");
+        } else {
+          console.log(res.message);
           commit("setlogInRes", res.message);
         }
       });
