@@ -78,9 +78,10 @@ export default {
 
 <style lang="scss" scoped>
 .item {
+  overflow: hidden;
   z-index: 0 !important;
   width: 100%;
-  padding-bottom: 35vw;
+  padding-bottom: 40vw;
   padding-top: 10vh;
   position: relative;
   .info {

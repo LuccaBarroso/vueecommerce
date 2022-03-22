@@ -24,5 +24,6 @@ export default {
   background-color: #1b1b1e;
   display: flex;
   flex-direction: column;
+  min-height: 100vh;
 }
 </style>

@@ -37,6 +37,12 @@ export default new Vuex.Store({
     },
     getlogInRes: state => {
       return state.logInRes;
+    },
+    isLogged: state => {
+      for (const property in state.user) {
+        return true;
+      }
+      return false;
     }
   },
   mutations: {
@@ -72,6 +78,9 @@ export default new Vuex.Store({
     },
     setlogInRes(state, logInRes) {
       state.logInRes = logInRes;
+    },
+    setUser(state, user) {
+      state.user = user;
     }
   },
   actions: {
@@ -97,14 +106,16 @@ export default new Vuex.Store({
     login({ commit }, data) {
       api.login(data).then(res => {
         console.log(res);
-        if (res.data.user) {
+        if (res.data && res.data.user) {
+          commit("setUser", res.data.user);
           console.log("login success");
-          commit("setlogInRes", "Success");
+          commit("setlogInRes", "");
+          commit("setPopup", "Success");
         } else {
           if (res.message) {
             commit("setlogInRes", res.message);
           } else {
-            commit("setlogInRes", "Sorry! something went wrong!");
+            commit("setlogInRes", "Sorry! Something went wrong!");
           }
         }
       });
@@ -113,8 +124,10 @@ export default new Vuex.Store({
       api.register(data).then(res => {
         console.log(res);
         if (res.data && res.data.user) {
+          commit("setUser", res.data.user);
           console.log("register success");
-          commit("setlogInRes", "Success");
+          commit("setlogInRes", "");
+          commit("setPopup", "Success");
         } else {
           console.log(res.message);
           commit("setlogInRes", res.message);
@@ -127,7 +140,6 @@ export default new Vuex.Store({
     // eslint-disable-next-line no-unused-vars
     scrollToId({ commit }, id) {
       var element = document.getElementById("cart");
-      console.log(element);
       element.scrollIntoView();
     }
   }

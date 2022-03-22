@@ -3,9 +3,9 @@
     <div class="logo"><h1>SodaCola</h1></div>
     <div class="spa"></div>
     <nav-bar-btn v-if="!isCartEmpty" icon="shopping-cart" id="cart" />
-    <nav-bar-btn icon="sign-out-alt" v-on:clicked="signOut" />
-    <nav-bar-btn icon="sign-in-alt" v-on:clicked="signIn" />
-    <nav-bar-btn icon="user" v-on:clicked="profile" />
+    <nav-bar-btn v-if="isLogged" icon="sign-out-alt" v-on:clicked="signOut" />
+    <nav-bar-btn v-if="!isLogged" icon="sign-in-alt" v-on:clicked="signIn" />
+    <nav-bar-btn v-if="isLogged" icon="user" v-on:clicked="profile" />
   </div>
 </template>
 
@@ -27,7 +27,7 @@ export default {
     }
   },
   computed: {
-    ...mapGetters(["isCartEmpty"])
+    ...mapGetters(["isCartEmpty", "isLogged"])
   }
 };
 </script>

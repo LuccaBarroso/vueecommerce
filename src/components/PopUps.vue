@@ -1,17 +1,19 @@
 <template>
   <div v-if="!checkPopup('')" class="popups" @click="close">
     <loginPopup v-if="checkPopup('login')" />
+    <success-popup v-if="checkPopup('Success')" />
   </div>
 </template>
 
 <script>
 import loginPopup from "./loginPopup.vue";
 import { mapGetters, mapMutations } from "vuex";
+import SuccessPopup from "./SuccessPopup.vue";
 export default {
   computed: {
     ...mapGetters(["getCurPopup"])
   },
-  components: { loginPopup },
+  components: { loginPopup, SuccessPopup },
   methods: {
     ...mapMutations(["setPopup"]),
     close: function() {
