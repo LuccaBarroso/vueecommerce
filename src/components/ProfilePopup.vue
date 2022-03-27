@@ -2,25 +2,51 @@
   <div class="popParent" @click.stop>
     <span class="close" @click="close">&times;</span>
     <button
-      @click="isRegister = false"
-      :class="['topBtns', !isRegister ? 'selected' : '']"
+      @click="isData = true"
+      :class="['topBtns', isData ? 'selected' : '']"
     >
-      Log In
+      Update Data
     </button>
     <button
-      @click="isRegister = true"
-      :class="['topBtns', isRegister ? 'selected' : '']"
+      @click="isData = false"
+      :class="['topBtns', !isData ? 'selected' : '']"
     >
-      Sign In
+      Change Password
     </button>
     <form @submit.prevent="doAction">
-      <div :class="[getlogInRes == 'loading' ? 'hide' : '']">
+      <div v-if="isData" :class="[getlogInRes == 'loading' ? 'hide' : '']">
         <label for="Name"><p>Name</p></label>
         <input type="text" v-model="name" id="name" name="name" />
       </div>
-      <div :class="[getlogInRes == 'loading' ? 'hide' : '']">
+      <div v-if="isData" :class="[getlogInRes == 'loading' ? 'hide' : '']">
         <label for="Email"><p>Email</p></label>
         <input type="text" v-model="email" id="email" name="email" />
+      </div>
+      <div
+        v-if="!isData"
+        :class="['changePass', getlogInRes == 'loading' ? 'hide' : '']"
+      >
+        <label for="curPass"><p>Current Password</p></label>
+        <input type="password" v-model="curPass" id="curPass" name="curPass" />
+      </div>
+      <div
+        v-if="!isData"
+        :class="['changePass', getlogInRes == 'loading' ? 'hide' : '']"
+      >
+        <label for="newPass"><p>New Password</p></label>
+        <input type="password" v-model="newPass" id="newPass" name="newPass" />
+      </div>
+      <div
+        v-if="!isData"
+        :class="['changePass', getlogInRes == 'loading' ? 'hide' : '']"
+      >
+        <label for="confirmNewPass"><p>Confirm New Password</p></label>
+        <input
+          type="password"
+          v-model="confirmNewPass"
+          id="confirmNewPass"
+          name="confirmNewPass"
+        />
       </div>
 
       <div
@@ -50,7 +76,7 @@ export default {
   },
   data() {
     return {
-      isRegister: false,
+      isData: true,
       name: "",
       email: "",
       password: "",
@@ -75,7 +101,7 @@ export default {
         password: this.password,
         passwordConfirm: this.passwordConfirm
       };
-      if (!this.isRegister) {
+      if (!this.isData) {
         delete data.name;
         delete data.passwordConfirm;
         this.login(data);
@@ -120,7 +146,7 @@ export default {
   }
   .topBtns {
     background-color: #1b1b1e;
-    padding: 10px 40px;
+    padding: 10px 30px;
     position: relative;
     top: -40px;
     color: #fff;
@@ -128,7 +154,7 @@ export default {
   .bottomBtns {
     align-self: center;
     background-color: #96031a;
-    padding: 10px 100px;
+    padding: 10px;
     width: 50%;
     position: relative;
     top: 40px;
@@ -162,12 +188,25 @@ export default {
       padding: 2px;
       margin-right: 10%;
     }
+    div.changePass input {
+      width: 50%;
+    }
     span {
       font-size: 14px;
     }
   }
   .selected {
     background-color: #27272b;
+  }
+}
+@media (max-width: 500px) {
+  .popParent .topBtns {
+    padding: 10px;
+  }
+}
+@media (max-width: 400px) {
+  .popParent .topBtns {
+    font-size: 13px;
   }
 }
 </style>

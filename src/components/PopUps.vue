@@ -2,6 +2,7 @@
   <div v-if="!checkPopup('')" class="popups" @click="close">
     <loginPopup v-if="checkPopup('login')" />
     <success-popup v-if="checkPopup('Success')" />
+    <profile-popup v-if="checkPopup('updateMe')" />
   </div>
 </template>
 
@@ -9,11 +10,12 @@
 import loginPopup from "./loginPopup.vue";
 import { mapGetters, mapMutations } from "vuex";
 import SuccessPopup from "./SuccessPopup.vue";
+import ProfilePopup from "./ProfilePopup.vue";
 export default {
   computed: {
     ...mapGetters(["getCurPopup"])
   },
-  components: { loginPopup, SuccessPopup },
+  components: { loginPopup, SuccessPopup, ProfilePopup },
   methods: {
     ...mapMutations(["setPopup"]),
     close: function() {

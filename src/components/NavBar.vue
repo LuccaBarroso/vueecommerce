@@ -23,7 +23,7 @@ export default {
       this.setPopup("login");
     },
     profile() {
-      alert("todo");
+      this.setPopup("updateMe");
     }
   },
   computed: {

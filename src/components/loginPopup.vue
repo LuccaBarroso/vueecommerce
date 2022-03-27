@@ -141,7 +141,7 @@ export default {
   .bottomBtns {
     align-self: center;
     background-color: #96031a;
-    padding: 10px 100px;
+    padding: 10px;
     width: 50%;
     position: relative;
     top: 40px;
@@ -181,6 +181,16 @@ export default {
   }
   .selected {
     background-color: #27272b;
+  }
+}
+@media (max-width: 500px) {
+  .popParent .topBtns {
+    padding: 10px;
+  }
+}
+@media (max-width: 400px) {
+  .popParent .topBtns {
+    font-size: 13px;
   }
 }
 </style>
