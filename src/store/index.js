@@ -18,7 +18,7 @@ export default new Vuex.Store({
   getters: {
     getCartItemQntByName: state => name => {
       const curItem = state.cart.find(item => item.name === name);
-      if (curItem) return curItem.qnt;
+      if (curItem) return curItem.quantity;
       return 0;
     },
     getProductInfoByName: state => name => {
@@ -30,7 +30,8 @@ export default new Vuex.Store({
     getCartTotal: (state, getters) => {
       return state.cart.reduce(function(acc, product) {
         return (
-          acc + product.qnt * getters.getProductInfoByName(product.name).price
+          acc +
+          product.quantity * getters.getProductInfoByName(product.name).price
         );
       }, 0);
     },
@@ -67,7 +68,7 @@ export default new Vuex.Store({
   },
   mutations: {
     addCartItem(state, name) {
-      state.cart.push({ name: name, qnt: 1 });
+      state.cart.push({ name: name, quantity: 1 });
     },
     deleteCartItem(state, name) {
       state.cart = state.cart.filter(product => product.name != name);
@@ -75,13 +76,13 @@ export default new Vuex.Store({
     incrementToCartItem(state, name) {
       let cartItem = state.cart.find(item => item.name === name);
       let itemIndex = state.cart.indexOf(cartItem);
-      cartItem.qnt++;
+      cartItem.quantity++;
       state.cart[itemIndex] = cartItem;
     },
     decrementToCartItem(state, name) {
       let cartItem = state.cart.find(item => item.name === name);
       let itemIndex = state.cart.indexOf(cartItem);
-      cartItem.qnt--;
+      cartItem.quantity--;
       state.cart[itemIndex] = cartItem;
     },
     setProducts(state, products) {
@@ -109,6 +110,7 @@ export default new Vuex.Store({
       state.jwt = jwt;
     },
     setCurHover(state, curHover) {
+      console.log(state.cart);
       state.curHover = curHover;
     }
   },

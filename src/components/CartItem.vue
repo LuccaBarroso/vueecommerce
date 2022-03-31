@@ -3,10 +3,12 @@
     <td class="product">
       {{ getProductInfoByName(item.name).name }}
     </td>
-    <td>{{ item.qnt }}</td>
+    <td>{{ item.quantity }}</td>
     <td>{{ getProductInfoByName(item.name).price.toFixed(2) + "$" }}</td>
     <td>
-      {{ (getProductInfoByName(item.name).price * item.qnt).toFixed(2) + "$" }}
+      {{
+        (getProductInfoByName(item.name).price * item.quantity).toFixed(2) + "$"
+      }}
     </td>
   </tr>
 </template>
