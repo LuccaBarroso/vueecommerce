@@ -2,10 +2,37 @@
   <div class="topbar">
     <div class="logo"><h1>SodaCola</h1></div>
     <div class="spa"></div>
-    <nav-bar-btn v-if="!isCartEmpty" icon="shopping-cart" id="cart" />
-    <nav-bar-btn v-if="isLogged" icon="sign-out-alt" v-on:clicked="signOut" />
-    <nav-bar-btn v-if="!isLogged" icon="sign-in-alt" v-on:clicked="signIn" />
-    <nav-bar-btn v-if="isLogged" icon="user" v-on:clicked="profile" />
+    <p>{{ this.getCurHover }}</p>
+    <nav-bar-btn
+      v-if="!isCartEmpty"
+      name="Cart"
+      icon="shopping-cart"
+      id="cart"
+    />
+    <nav-bar-btn
+      v-if="isLogged"
+      name="Sign Out"
+      icon="sign-out-alt"
+      v-on:clicked="signOut"
+    />
+    <nav-bar-btn
+      v-if="!isLogged"
+      name="Sign In"
+      icon="sign-in-alt"
+      v-on:clicked="signIn"
+    />
+    <nav-bar-btn
+      v-if="isLogged"
+      name="Profile"
+      icon="user"
+      v-on:clicked="profile"
+    />
+    <nav-bar-btn
+      v-if="isLogged"
+      name="Orders"
+      icon="box"
+      v-on:clicked="orders"
+    />
   </div>
 </template>
 
@@ -22,12 +49,15 @@ export default {
     signIn() {
       this.setPopup("login");
     },
+    orders() {
+      //go to orders
+    },
     async profile() {
       this.setPopup("updateMe");
     }
   },
   computed: {
-    ...mapGetters(["isCartEmpty", "isLogged"])
+    ...mapGetters(["isCartEmpty", "isLogged", "getCurHover"])
   }
 };
 </script>
@@ -45,11 +75,20 @@ export default {
   .spa {
     width: 100%;
   }
+  p {
+    color: white;
+    font-size: 1.2em;
+    margin: 0;
+    width: 100%;
+    text-align: right;
+    padding: 0 15px;
+  }
   .logo {
     color: white;
     font-family: "Birthstone Bounce", cursive;
     font-weight: 400;
     font-size: 15px;
+    padding-left: 15px;
   }
 }
 </style>

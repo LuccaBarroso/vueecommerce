@@ -12,7 +12,8 @@ export default new Vuex.Store({
     user: {},
     logInRes: "",
     updateRes: "",
-    jwt: ""
+    jwt: "",
+    curHover: ""
   },
   getters: {
     getCartItemQntById: state => id => {
@@ -57,6 +58,9 @@ export default new Vuex.Store({
     },
     getJwt: state => {
       return state.jwt;
+    },
+    getCurHover: state => {
+      return state.curHover;
     }
   },
   mutations: {
@@ -101,6 +105,9 @@ export default new Vuex.Store({
     },
     setJwt(state, jwt) {
       state.jwt = jwt;
+    },
+    setCurHover(state, curHover) {
+      state.curHover = curHover;
     }
   },
   actions: {
@@ -194,6 +201,7 @@ export default new Vuex.Store({
           commit("setPopup", "");
           commit("setUser", null);
           commit("setJwt", null);
+          commit("setUpdateRes", "");
         }
       });
     }

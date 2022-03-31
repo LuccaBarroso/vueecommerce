@@ -1,6 +1,10 @@
 <template>
   <div>
-    <button id="car">
+    <button
+      @mouseover="setCurHover(name)"
+      @mouseleave="setCurHover('')"
+      id="car"
+    >
       <v-icon style="color: white;" small class="icons" @click="click"
         >fas fa-{{ icon }}</v-icon
       >
@@ -9,20 +13,28 @@
 </template>
 
 <script>
-import { mapActions } from "vuex";
+import { mapActions, mapMutations } from "vuex";
 export default {
   props: {
     icon: { type: String, required: true },
-    id: { type: String, required: false }
+    id: { type: String, required: false },
+    name: { type: String, required: false }
   },
   methods: {
     ...mapActions(["scrollToId"]),
+    ...mapMutations(["setCurHover"]),
     click() {
       if (this.id) {
         this.scrollToId(this.id);
       } else {
         this.$emit("clicked");
       }
+    },
+    hover() {
+      this.setCurHover("teste");
+    },
+    leave() {
+      this.setCurHover("");
     }
   }
 };
@@ -30,6 +42,12 @@ export default {
 
 <style lang="scss" scoped>
 .icons {
-  padding: 10px;
+  padding: 15px;
+}
+button {
+  transition: all 0.2s ease-in-out;
+}
+button:hover {
+  transform: scale(1.1);
 }
 </style>
