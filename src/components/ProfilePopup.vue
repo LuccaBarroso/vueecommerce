@@ -14,31 +14,31 @@
       Change Password
     </button>
     <form @submit.prevent="doAction">
-      <div v-if="isData" :class="[getlogInRes == 'loading' ? 'hide' : '']">
+      <div v-if="isData" :class="[getUpdateRes == 'loading' ? 'hide' : '']">
         <label for="Name"><p>Name</p></label>
         <input type="text" v-model="name" id="name" name="name" />
       </div>
-      <div v-if="isData" :class="[getlogInRes == 'loading' ? 'hide' : '']">
+      <div v-if="isData" :class="[getUpdateRes == 'loading' ? 'hide' : '']">
         <label for="Email"><p>Email</p></label>
         <input type="text" v-model="email" id="email" name="email" />
       </div>
       <div
         v-if="!isData"
-        :class="['changePass', getlogInRes == 'loading' ? 'hide' : '']"
+        :class="['changePass', getUpdateRes == 'loading' ? 'hide' : '']"
       >
         <label for="curPass"><p>Current Password</p></label>
         <input type="password" v-model="curPass" id="curPass" name="curPass" />
       </div>
       <div
         v-if="!isData"
-        :class="['changePass', getlogInRes == 'loading' ? 'hide' : '']"
+        :class="['changePass', getUpdateRes == 'loading' ? 'hide' : '']"
       >
         <label for="newPass"><p>New Password</p></label>
         <input type="password" v-model="newPass" id="newPass" name="newPass" />
       </div>
       <div
         v-if="!isData"
-        :class="['changePass', getlogInRes == 'loading' ? 'hide' : '']"
+        :class="['changePass', getUpdateRes == 'loading' ? 'hide' : '']"
       >
         <label for="confirmNewPass"><p>Confirm New Password</p></label>
         <input
@@ -50,14 +50,14 @@
       </div>
 
       <div
-        :class="['warning', getlogInRes == 'loading' ? 'hide' : '']"
-        v-if="getlogInRes != ''"
+        :class="['warning', getUpdateRes == 'loading' ? 'hide' : '']"
+        v-if="getUpdateRes != ''"
       >
-        <p>{{ getlogInRes }}</p>
+        <p>{{ getUpdateRes }}</p>
         <span class="close" @click="hideWarning">&times;</span>
       </div>
 
-      <loading v-if="getlogInRes == 'loading'" />
+      <loading v-if="getUpdateRes == 'loading'" />
 
       <button class="bottomBtns" type="submit">
         Update
@@ -92,18 +92,17 @@ export default {
   },
   methods: {
     ...mapActions(["updateMe", "updatePass"]),
-    ...mapMutations(["setPopup", "setlogInRes"]),
+    ...mapMutations(["setPopup", "setUpdateRes"]),
     close: function() {
       this.setPopup("");
       this.hideWarning();
     },
     hideWarning: function() {
-      this.setlogInRes("");
+      this.setUpdateRes("");
     },
     doAction: function() {
       this.changeLoading(true);
       if (this.isData) {
-        console.log(this.name);
         const data = {
           name: this.name,
           email: this.email
@@ -120,14 +119,14 @@ export default {
     },
     changeLoading(bool) {
       if (bool) {
-        this.setlogInRes("loading");
-      } else if (this.getlogInRes == "loading") {
-        this.setLogInRes("");
+        this.setUpdateRes("loading");
+      } else if (this.getUpdateRes == "loading") {
+        this.setUpdateRes("");
       }
     }
   },
   computed: {
-    ...mapGetters(["getlogInRes", "getUser"])
+    ...mapGetters(["getUpdateRes", "getUser"])
   },
   created() {
     let user = this.getUser;

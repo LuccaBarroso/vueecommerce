@@ -11,6 +11,7 @@ export default new Vuex.Store({
     popup: "",
     user: {},
     logInRes: "",
+    updateRes: "",
     jwt: ""
   },
   getters: {
@@ -38,6 +39,9 @@ export default new Vuex.Store({
     },
     getlogInRes: state => {
       return state.logInRes;
+    },
+    getUpdateRes: state => {
+      return state.updateRes;
     },
     isLogged: state => {
       for (const property in state.user) {
@@ -88,6 +92,9 @@ export default new Vuex.Store({
     },
     setlogInRes(state, logInRes) {
       state.logInRes = logInRes;
+    },
+    setUpdateRes(state, updateRes) {
+      state.updateRes = updateRes;
     },
     setUser(state, user) {
       state.user = user;
@@ -157,15 +164,28 @@ export default new Vuex.Store({
     },
     updateMe({ commit, getters, dispatch }, data) {
       api.updateMe(data, getters.getJwt).then(async res => {
-        console.log(res);
-        await dispatch("getMe");
-        commit("setlogInRes", "");
-        commit("setPopup", "Success");
+        if (res.status == "success") {
+          await dispatch("getMe");
+          commit("setUpdateRes", "");
+          commit("setPopup", "Success");
+        } else {
+          commit("setUpdateRes", res.message);
+        }
       });
     },
     getMe({ commit, getters }) {
       api.getMe(getters.getJwt).then(res => {
         commit("setUser", res.data.data);
+      });
+    },
+    updatePass({ commit, getters }, data) {
+      api.updatePass(data, getters.getJwt).then(res => {
+        if (res.status == "success") {
+          commit("setUpdateRes", "");
+          commit("setPopup", "Success");
+        } else {
+          commit("setUpdateRes", res.message);
+        }
       });
     }
   }

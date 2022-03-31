@@ -11,7 +11,7 @@
 
 <script>
 import NavBarBtn from "./NavBarBtn.vue";
-import { mapGetters, mapMutations, mapActions } from "vuex";
+import { mapGetters, mapMutations } from "vuex";
 export default {
   components: { NavBarBtn },
   methods: {
@@ -23,14 +23,11 @@ export default {
       this.setPopup("login");
     },
     async profile() {
-      console.log("profile clicked");
-      await this.getMe;
       this.setPopup("updateMe");
     }
   },
   computed: {
-    ...mapGetters(["isCartEmpty", "isLogged"]),
-    ...mapActions(["getMe"])
+    ...mapGetters(["isCartEmpty", "isLogged"])
   }
 };
 </script>

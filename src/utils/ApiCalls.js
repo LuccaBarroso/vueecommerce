@@ -34,7 +34,6 @@ export async function register(data) {
 }
 
 export async function updateMe(data, jwt) {
-  console.log(data);
   try {
     const response = await axios.patch(apiUrl + "/user/updateMe", data, {
       withCredentials: true,
@@ -42,6 +41,20 @@ export async function updateMe(data, jwt) {
     });
     return response.data;
   } catch (error) {
+    console.log(error.response.data);
+    return error.response.data;
+  }
+}
+
+export async function updatePass(data, jwt) {
+  try {
+    const response = await axios.patch(apiUrl + "/user/updatePassword", data, {
+      withCredentials: true,
+      headers: { Authorization: `Bearer ${jwt}` }
+    });
+    return response.data;
+  } catch (error) {
+    console.log(error.response.data);
     return error.response.data;
   }
 }
