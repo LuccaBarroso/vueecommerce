@@ -70,3 +70,15 @@ export async function getMe(jwt) {
     return error.response.data;
   }
 }
+
+export async function logout(jwt) {
+  try {
+    const response = await axios.get(apiUrl + "/user/logout", {
+      withCredentials: true,
+      headers: { Authorization: `Bearer ${jwt}` }
+    });
+    return response.data;
+  } catch (error) {
+    return error.response.data;
+  }
+}

@@ -187,6 +187,15 @@ export default new Vuex.Store({
           commit("setUpdateRes", res.message);
         }
       });
+    },
+    logout({ commit, getters }) {
+      api.logout(getters.getJwt).then(res => {
+        if (res) {
+          commit("setPopup", "");
+          commit("setUser", null);
+          commit("setJwt", null);
+        }
+      });
     }
   }
 });

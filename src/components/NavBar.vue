@@ -17,7 +17,7 @@ export default {
   methods: {
     ...mapMutations(["setPopup"]),
     signOut() {
-      alert("todo");
+      this.setPopup("logout");
     },
     signIn() {
       this.setPopup("login");
