@@ -1,6 +1,6 @@
 <template>
   <div class="popParent" @click.stop>
-    <span class="close" @click="close">&times;</span>
+    <span class="close" @click="doAction">&times;</span>
     <p>Success</p>
     <button class="bottomBtns" @click="doAction">Ok</button>
   </div>

@@ -10,7 +10,8 @@ export default new Vuex.Store({
     cart: [],
     popup: "",
     user: {},
-    logInRes: ""
+    logInRes: "",
+    jwt: ""
   },
   getters: {
     getCartItemQntById: state => id => {
@@ -43,6 +44,15 @@ export default new Vuex.Store({
         return true;
       }
       return false;
+    },
+    getUser: state => {
+      if (state.user) {
+        return state.user;
+      }
+      return null;
+    },
+    getJwt: state => {
+      return state.jwt;
     }
   },
   mutations: {
@@ -81,6 +91,9 @@ export default new Vuex.Store({
     },
     setUser(state, user) {
       state.user = user;
+    },
+    setJwt(state, jwt) {
+      state.jwt = jwt;
     }
   },
   actions: {
@@ -105,11 +118,11 @@ export default new Vuex.Store({
     },
     login({ commit }, data) {
       api.login(data).then(res => {
-        console.log(res);
         if (res.data && res.data.user) {
           commit("setUser", res.data.user);
           console.log("login success");
           commit("setlogInRes", "");
+          commit("setJwt", res.token);
           commit("setPopup", "Success");
         } else {
           if (res.message) {
@@ -122,10 +135,10 @@ export default new Vuex.Store({
     },
     register({ commit }, data) {
       api.register(data).then(res => {
-        console.log(res);
         if (res.data && res.data.user) {
           commit("setUser", res.data.user);
           console.log("register success");
+          commit("setJwt", res.token);
           commit("setlogInRes", "");
           commit("setPopup", "Success");
         } else {
@@ -141,6 +154,19 @@ export default new Vuex.Store({
     scrollToId({ commit }, id) {
       var element = document.getElementById("cart");
       element.scrollIntoView();
+    },
+    updateMe({ commit, getters, dispatch }, data) {
+      api.updateMe(data, getters.getJwt).then(async res => {
+        console.log(res);
+        await dispatch("getMe");
+        commit("setlogInRes", "");
+        commit("setPopup", "Success");
+      });
+    },
+    getMe({ commit, getters }) {
+      api.getMe(getters.getJwt).then(res => {
+        commit("setUser", res.data.data);
+      });
     }
   }
 });

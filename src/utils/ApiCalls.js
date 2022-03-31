@@ -15,7 +15,9 @@ export async function getProducts() {
 
 export async function login(data) {
   try {
-    const response = await axios.post(apiUrl + "/user/login", data);
+    const response = await axios.post(apiUrl + "/user/login", data, {
+      withCredentials: true
+    });
     return response.data;
   } catch (error) {
     return error.response.data;
@@ -25,6 +27,31 @@ export async function login(data) {
 export async function register(data) {
   try {
     const response = await axios.post(apiUrl + "/user/signup", data);
+    return response.data;
+  } catch (error) {
+    return error.response.data;
+  }
+}
+
+export async function updateMe(data, jwt) {
+  console.log(data);
+  try {
+    const response = await axios.patch(apiUrl + "/user/updateMe", data, {
+      withCredentials: true,
+      headers: { Authorization: `Bearer ${jwt}` }
+    });
+    return response.data;
+  } catch (error) {
+    return error.response.data;
+  }
+}
+
+export async function getMe(jwt) {
+  try {
+    const response = await axios.get(apiUrl + "/user/me", {
+      withCredentials: true,
+      headers: { Authorization: `Bearer ${jwt}` }
+    });
     return response.data;
   } catch (error) {
     return error.response.data;

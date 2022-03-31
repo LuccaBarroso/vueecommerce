@@ -79,12 +79,19 @@ export default {
       isData: true,
       name: "",
       email: "",
-      password: "",
-      passwordConfirm: ""
+      curPass: "",
+      newPass: "",
+      confirmNewPass: ""
     };
   },
+  props: {
+    user: {
+      type: Object,
+      default: () => ({})
+    }
+  },
   methods: {
-    ...mapActions(["login", "register"]),
+    ...mapActions(["updateMe", "updatePass"]),
     ...mapMutations(["setPopup", "setlogInRes"]),
     close: function() {
       this.setPopup("");
@@ -95,18 +102,20 @@ export default {
     },
     doAction: function() {
       this.changeLoading(true);
-      const data = {
-        name: this.name,
-        email: this.email,
-        password: this.password,
-        passwordConfirm: this.passwordConfirm
-      };
-      if (!this.isData) {
-        delete data.name;
-        delete data.passwordConfirm;
-        this.login(data);
+      if (this.isData) {
+        console.log(this.name);
+        const data = {
+          name: this.name,
+          email: this.email
+        };
+        this.updateMe(data);
       } else {
-        this.register(data);
+        const data = {
+          passwordCurrent: this.curPass,
+          password: this.newPass,
+          passwordConfirm: this.confirmNewPass
+        };
+        this.updatePass(data);
       }
     },
     changeLoading(bool) {
@@ -118,7 +127,12 @@ export default {
     }
   },
   computed: {
-    ...mapGetters(["getlogInRes"])
+    ...mapGetters(["getlogInRes", "getUser"])
+  },
+  created() {
+    let user = this.getUser;
+    this.name = user.name;
+    this.email = user.email;
   }
 };
 </script>

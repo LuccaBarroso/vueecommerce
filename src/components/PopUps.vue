@@ -2,21 +2,22 @@
   <div v-if="!checkPopup('')" class="popups" @click="close">
     <loginPopup v-if="checkPopup('login')" />
     <success-popup v-if="checkPopup('Success')" />
-    <profile-popup v-if="checkPopup('updateMe')" />
+    <profile-popup :user="getUser" v-if="checkPopup('updateMe')" />
   </div>
 </template>
 
 <script>
 import loginPopup from "./loginPopup.vue";
-import { mapGetters, mapMutations } from "vuex";
+import { mapGetters, mapMutations, mapActions } from "vuex";
 import SuccessPopup from "./SuccessPopup.vue";
 import ProfilePopup from "./ProfilePopup.vue";
 export default {
   computed: {
-    ...mapGetters(["getCurPopup"])
+    ...mapGetters(["getCurPopup", "getUser"])
   },
   components: { loginPopup, SuccessPopup, ProfilePopup },
   methods: {
+    ...mapActions(["getMe"]),
     ...mapMutations(["setPopup"]),
     close: function() {
       this.setPopup("");
