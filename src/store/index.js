@@ -16,20 +16,22 @@ export default new Vuex.Store({
     curHover: ""
   },
   getters: {
-    getCartItemQntById: state => id => {
-      const curItem = state.cart.find(item => item.id === id);
+    getCartItemQntByName: state => name => {
+      const curItem = state.cart.find(item => item.name === name);
       if (curItem) return curItem.qnt;
       return 0;
     },
-    getProductInfoById: state => id => {
-      return state.products.find(product => product.id === id);
+    getProductInfoByName: state => name => {
+      return state.products.find(product => product.name === name);
     },
     getProducts: state => {
       return state.products;
     },
     getCartTotal: (state, getters) => {
       return state.cart.reduce(function(acc, product) {
-        return acc + product.qnt * getters.getProductInfoById(product.id).price;
+        return (
+          acc + product.qnt * getters.getProductInfoByName(product.name).price
+        );
       }, 0);
     },
     isCartEmpty: state => {
@@ -64,20 +66,20 @@ export default new Vuex.Store({
     }
   },
   mutations: {
-    addCartItem(state, id) {
-      state.cart.push({ id: id, qnt: 1 });
+    addCartItem(state, name) {
+      state.cart.push({ name: name, qnt: 1 });
     },
-    deleteCartItem(state, id) {
-      state.cart = state.cart.filter(product => product.id != id);
+    deleteCartItem(state, name) {
+      state.cart = state.cart.filter(product => product.name != name);
     },
-    incrementToCartItem(state, id) {
-      let cartItem = state.cart.find(item => item.id === id);
+    incrementToCartItem(state, name) {
+      let cartItem = state.cart.find(item => item.name === name);
       let itemIndex = state.cart.indexOf(cartItem);
       cartItem.qnt++;
       state.cart[itemIndex] = cartItem;
     },
-    decrementToCartItem(state, id) {
-      let cartItem = state.cart.find(item => item.id === id);
+    decrementToCartItem(state, name) {
+      let cartItem = state.cart.find(item => item.name === name);
       let itemIndex = state.cart.indexOf(cartItem);
       cartItem.qnt--;
       state.cart[itemIndex] = cartItem;
@@ -111,18 +113,18 @@ export default new Vuex.Store({
     }
   },
   actions: {
-    addProduct({ commit, getters }, id) {
-      if (getters.getCartItemQntById(id) !== 0) {
-        commit("incrementToCartItem", id);
+    addProduct({ commit, getters }, name) {
+      if (getters.getCartItemQntByName(name) !== 0) {
+        commit("incrementToCartItem", name);
       } else {
-        commit("addCartItem", id);
+        commit("addCartItem", name);
       }
     },
-    subProduct({ commit, getters }, id) {
-      if (getters.getCartItemQntById(id) > 1) {
-        commit("decrementToCartItem", id);
+    subProduct({ commit, getters }, name) {
+      if (getters.getCartItemQntByName(name) > 1) {
+        commit("decrementToCartItem", name);
       } else {
-        commit("deleteCartItem", id);
+        commit("deleteCartItem", name);
       }
     },
     fetchProducts({ commit }) {

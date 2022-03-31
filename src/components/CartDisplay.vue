@@ -8,7 +8,7 @@
         <th style="width: 20%">Total</th>
       </tr>
       <template v-for="item in cart">
-        <cart-item :key="item.id" :item="item"></cart-item>
+        <cart-item :key="item.name" :item="item"></cart-item>
       </template>
       <tr>
         <td></td>

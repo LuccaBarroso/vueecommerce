@@ -1,12 +1,12 @@
 <template>
   <tr>
     <td class="product">
-      {{ getProductInfoById(item.id).name }}
+      {{ getProductInfoByName(item.name).name }}
     </td>
     <td>{{ item.qnt }}</td>
-    <td>{{ getProductInfoById(item.id).price.toFixed(2) + "$" }}</td>
+    <td>{{ getProductInfoByName(item.name).price.toFixed(2) + "$" }}</td>
     <td>
-      {{ (getProductInfoById(item.id).price * item.qnt).toFixed(2) + "$" }}
+      {{ (getProductInfoByName(item.name).price * item.qnt).toFixed(2) + "$" }}
     </td>
   </tr>
 </template>
@@ -22,7 +22,7 @@ export default {
     }
   },
   computed: {
-    ...mapGetters(["getProductInfoById"])
+    ...mapGetters(["getProductInfoByName"])
   }
 };
 </script>

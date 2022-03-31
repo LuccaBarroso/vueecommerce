@@ -13,7 +13,7 @@
               >fas fa-minus</v-icon
             >
           </button>
-          <p>{{ getCartItemQntById(id) }}</p>
+          <p>{{ getCartItemQntByName(name) }}</p>
           <button @click="add()">
             <v-icon style="color: white;" x-small class="icons"
               >fas fa-plus</v-icon
@@ -21,7 +21,7 @@
           </button>
         </div>
         <div class="total">
-          <p>{{ (getCartItemQntById(id) * price).toFixed(2) }}$</p>
+          <p>{{ (getCartItemQntByName(name) * price).toFixed(2) }}$</p>
         </div>
       </div>
       <div class="spa"></div>
@@ -60,18 +60,18 @@ export default {
     },
     add: function() {
       // console.log("add pressed");
-      this.addProduct(this.id);
-      // console.log(this.id);
+      this.addProduct(this.name);
+      // console.log(this.name);
     },
     sub: function() {
-      if (this.getCartItemQntById(this.id) != 0) {
+      if (this.getCartItemQntByName(this.name) != 0) {
         // console.log("sub pressed");
-        this.subProduct(this.id);
+        this.subProduct(this.name);
       }
     }
   },
   computed: {
-    ...mapGetters(["getCartItemQntById"])
+    ...mapGetters(["getCartItemQntByName"])
   }
 };
 </script>

@@ -82,3 +82,16 @@ export async function logout(jwt) {
     return error.response.data;
   }
 }
+
+export async function makeOrder(data, jwt) {
+  try {
+    const response = await axios.patch(apiUrl + "/order", data, {
+      withCredentials: true,
+      headers: { Authorization: `Bearer ${jwt}` }
+    });
+    return response.status;
+  } catch (error) {
+    console.log(error.response.status);
+    return error.response.status;
+  }
+}
