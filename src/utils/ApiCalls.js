@@ -41,7 +41,6 @@ export async function updateMe(data, jwt) {
     });
     return response.data;
   } catch (error) {
-    console.log(error.response.data);
     return error.response.data;
   }
 }
@@ -54,7 +53,6 @@ export async function updatePass(data, jwt) {
     });
     return response.data;
   } catch (error) {
-    console.log(error.response.data);
     return error.response.data;
   }
 }
@@ -83,15 +81,23 @@ export async function logout(jwt) {
   }
 }
 
-export async function makeOrder(data, jwt) {
+export async function makeOrder(jwt, address, cart) {
   try {
-    const response = await axios.patch(apiUrl + "/order", data, {
+    const data = {};
+    data.address = address;
+    data.products = [];
+    cart.forEach(item => {
+      data.products.push({
+        product: item.name,
+        quantity: item.quantity
+      });
+    });
+    const response = await axios.post(apiUrl + "/order", data, {
       withCredentials: true,
       headers: { Authorization: `Bearer ${jwt}` }
     });
-    return response.status;
+    return response.data;
   } catch (error) {
-    console.log(error.response.status);
-    return error.response.status;
+    return error.response.data;
   }
 }

@@ -13,7 +13,8 @@ export default new Vuex.Store({
     logInRes: "",
     updateRes: "",
     jwt: "",
-    curHover: ""
+    curHover: "",
+    error: ""
   },
   getters: {
     getCartItemQntByName: state => name => {
@@ -64,6 +65,9 @@ export default new Vuex.Store({
     },
     getCurHover: state => {
       return state.curHover;
+    },
+    getError: state => {
+      return state.error;
     }
   },
   mutations: {
@@ -94,6 +98,9 @@ export default new Vuex.Store({
         return item;
       });
     },
+    emptyCart(state) {
+      state.cart = [];
+    },
     setPopup(state, pop) {
       state.popup = pop;
     },
@@ -110,8 +117,10 @@ export default new Vuex.Store({
       state.jwt = jwt;
     },
     setCurHover(state, curHover) {
-      console.log(state.cart);
       state.curHover = curHover;
+    },
+    setError(state, error) {
+      state.error = error;
     }
   },
   actions: {
@@ -206,6 +215,16 @@ export default new Vuex.Store({
           commit("setUser", null);
           commit("setJwt", null);
           commit("setUpdateRes", "");
+        }
+      });
+    },
+    makeOrder({ commit, getters }, data) {
+      api.makeOrder(getters.getJwt, data.address, data.cart).then(res => {
+        if (res.status == "success") {
+          commit("emptyCart");
+        } else {
+          commit("setError", res.message);
+          commit("setPopup", "erro");
         }
       });
     }

@@ -19,8 +19,8 @@
     </table>
 
     <div class="buttonArea">
-      <div class="spa"></div>
-      <button>
+      <input type="text" placeholder="Address" v-model="address" />
+      <button v-on:click="doAction">
         Place Order
       </button>
     </div>
@@ -29,9 +29,23 @@
 
 <script>
 import CartItem from "./CartItem.vue";
-import { mapGetters } from "vuex";
+import { mapGetters, mapActions } from "vuex";
 export default {
   components: { CartItem },
+  data() {
+    return {
+      address: ""
+    };
+  },
+  methods: {
+    ...mapActions(["makeOrder"]),
+    doAction() {
+      this.makeOrder({
+        address: this.address,
+        cart: this.cart
+      });
+    }
+  },
   computed: {
     ...mapGetters(["getCartTotal"]),
     cart() {
@@ -53,13 +67,23 @@ div {
     display: flex;
     flex-direction: row;
     width: 90%;
-    .spa {
+    input {
       width: 100%;
+      height: 50px;
+      border: none;
+      background-color: #c4c4c4;
+      font-size: 1.4ch;
+      padding: 0 10px;
+      margin: 10px;
+      &:focus {
+        outline: none;
+      }
     }
+
     button {
       background-color: #96031a;
       color: #fff;
-      width: 80%;
+      width: 60%;
       padding: 10px 0;
       margin: 10px;
     }

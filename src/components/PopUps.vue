@@ -4,6 +4,7 @@
     <success-popup v-if="checkPopup('Success')" />
     <profile-popup :user="getUser" v-if="checkPopup('updateMe')" />
     <logout-popup v-if="checkPopup('logout')" />
+    <error-popup v-if="checkPopup('erro')" />
   </div>
 </template>
 
@@ -13,16 +14,24 @@ import { mapGetters, mapMutations, mapActions } from "vuex";
 import SuccessPopup from "./SuccessPopup.vue";
 import ProfilePopup from "./ProfilePopup.vue";
 import LogoutPopup from "./LogoutPopup.vue";
+import ErrorPopup from "./ErrorPopup.vue";
 export default {
   computed: {
-    ...mapGetters(["getCurPopup", "getUser"])
+    ...mapGetters(["getCurPopup", "getUser", "getError"])
   },
-  components: { loginPopup, SuccessPopup, ProfilePopup, LogoutPopup },
+  components: {
+    loginPopup,
+    SuccessPopup,
+    ProfilePopup,
+    LogoutPopup,
+    ErrorPopup
+  },
   methods: {
     ...mapActions(["getMe"]),
-    ...mapMutations(["setPopup"]),
+    ...mapMutations(["setPopup", "setError"]),
     close: function() {
       this.setPopup("");
+      this.setError("");
     },
     checkPopup(name) {
       return this.getCurPopup == name;
