@@ -218,10 +218,11 @@ export default new Vuex.Store({
         }
       });
     },
-    makeOrder({ commit, getters }, data) {
+    makeOrder({ commit, getters, dispatch }, data) {
       api.makeOrder(getters.getJwt, data.address, data.cart).then(res => {
         if (res.status == "success") {
           commit("emptyCart");
+          dispatch("goToOrders");
         } else {
           commit("setError", res.message);
           commit("setPopup", "erro");

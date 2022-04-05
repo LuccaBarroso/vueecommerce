@@ -1,6 +1,11 @@
 <template>
   <div class="topbar">
-    <div class="logo"><h1>SodaCola</h1></div>
+    <router-link
+      style="text-decoration: none; color: inherit;"
+      :to="{ name: 'Home' }"
+    >
+      <div class="logo"><h1>SodaCola</h1></div>
+    </router-link>
     <div class="spa"></div>
     <p>{{ this.getCurHover }}</p>
     <nav-bar-btn
@@ -27,8 +32,8 @@
       icon="user"
       v-on:clicked="profile"
     />
-    <nav-bar-btn
-      v-if="isLogged"
+    <nav-bar-router
+      v-if="isLogged && !isOrders()"
       name="Orders"
       icon="box"
       v-on:clicked="orders"
@@ -39,8 +44,9 @@
 <script>
 import NavBarBtn from "./NavBarBtn.vue";
 import { mapGetters, mapMutations } from "vuex";
+import NavBarRouter from "./NavBarRouter.vue";
 export default {
-  components: { NavBarBtn },
+  components: { NavBarBtn, NavBarRouter },
   methods: {
     ...mapMutations(["setPopup"]),
     signOut() {
@@ -54,6 +60,10 @@ export default {
     },
     async profile() {
       this.setPopup("updateMe");
+    },
+    isOrders() {
+      console.log(this.$route.path);
+      return this.$route.path == "/orders";
     }
   },
   computed: {
