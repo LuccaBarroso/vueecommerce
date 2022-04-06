@@ -68,6 +68,31 @@ export default new Vuex.Store({
     },
     getError: state => {
       return state.error;
+    },
+    getName: state => {
+      return state.user.name;
+    },
+    getOrders: state => {
+      console.log(state.user);
+      if (!state.user.orders) {
+        window.location.replace("/");
+      } else {
+        let orders = [];
+        for (let i = 0; i < state.user.orders.length; i++) {
+          let curDate = new Date(state.user.orders[i].dateOfOrder);
+          orders.push({
+            address: state.user.orders[i].address,
+            date:
+              curDate.getDay() +
+              "/" +
+              curDate.getMonth() +
+              "/" +
+              curDate.getFullYear(),
+            products: state.user.orders[i].products
+          });
+        }
+        return orders;
+      }
     }
   },
   mutations: {
@@ -143,7 +168,7 @@ export default new Vuex.Store({
         commit("setProducts", products);
       });
     },
-    login({ commit }, data) {
+    login({ commit, dispatch }, data) {
       api.login(data).then(res => {
         if (res.data && res.data.user) {
           commit("setUser", res.data.user);
@@ -151,6 +176,7 @@ export default new Vuex.Store({
           commit("setlogInRes", "");
           commit("setJwt", res.token);
           commit("setPopup", "Success");
+          dispatch("getMe");
         } else {
           if (res.message) {
             commit("setlogInRes", res.message);
@@ -160,7 +186,7 @@ export default new Vuex.Store({
         }
       });
     },
-    register({ commit }, data) {
+    register({ commit, dispatch }, data) {
       api.register(data).then(res => {
         if (res.data && res.data.user) {
           commit("setUser", res.data.user);
@@ -168,6 +194,7 @@ export default new Vuex.Store({
           commit("setJwt", res.token);
           commit("setlogInRes", "");
           commit("setPopup", "Success");
+          dispatch("getMe");
         } else {
           console.log(res.message);
           commit("setlogInRes", res.message);

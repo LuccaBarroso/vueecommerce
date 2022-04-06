@@ -62,7 +62,7 @@ export default {
       this.setPopup("updateMe");
     },
     isOrders() {
-      console.log(this.$route.path);
+      // console.log(this.$route.path);
       return this.$route.path == "/orders";
     }
   },
