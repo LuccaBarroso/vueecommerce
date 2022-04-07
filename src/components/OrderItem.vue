@@ -4,18 +4,18 @@
       <p class="date">{{ order.date }}</p>
       <p>{{ order.tamanho }} products</p>
     </div>
-    <div class="info">
-      <button @mouseover="changeShow()" @mouseleave="changeShow()">
-        <v-icon style="color: white;" small class="icons" @click="click"
-          >fas fa-plus</v-icon
-        >
-      </button>
-      <p v-if="show">Info</p>
-    </div>
+    <button @click="changeCurOrder" class="info">
+      <v-icon style="color: white;" small class="icons"
+        >fas fa-{{ isCurOrder() ? "minus" : "plus" }}</v-icon
+      >
+      <p>Info</p>
+    </button>
   </div>
 </template>
 
 <script>
+import { mapGetters, mapMutations } from "vuex";
+
 export default {
   props: {
     order: {
@@ -23,15 +23,24 @@ export default {
       required: true
     }
   },
-  data: () => ({
-    show: false
-  }),
+  computed: {
+    ...mapGetters(["getCurOrderBeeingViewed"])
+  },
   methods: {
+    ...mapMutations(["setCurOrderBeeingViewed"]),
     changeShow() {
       this.show = !this.show;
     },
-    click() {
-      this.$emit("clicked");
+    isCurOrder() {
+      return this.order.id === this.getCurOrderBeeingViewed;
+    },
+    changeCurOrder() {
+      console.log("click");
+      if (this.isCurOrder()) {
+        this.setCurOrderBeeingViewed("-1");
+      } else {
+        this.setCurOrderBeeingViewed(this.order.id);
+      }
     }
   }
 };
@@ -67,19 +76,23 @@ export default {
   }
   .info {
     background-color: #96031a;
-    padding: 5px;
+    padding: 10px;
     border-radius: 25px;
     width: auto;
     margin-right: 20px;
     display: flex;
     p {
-      padding-left: 5px;
-      position: relative;
-      top: 1px;
+      display: none;
+      margin-left: 5px;
     }
   }
   p {
     color: white;
+  }
+}
+.info:hover {
+  p {
+    display: flex;
   }
 }
 </style>

@@ -4,6 +4,10 @@
       <p class="hello">Hi {{ getName }},</p>
       <p class="ordersText">These are your orders:</p>
       <orders-display :orders="getOrders" />
+      <order-details
+        v-if="getCurOrderBeeingViewed !== '-1'"
+        :orders="getOrders"
+      />
     </div>
     <!-- <Footer /> -->
   </div>
@@ -13,11 +17,17 @@
 // import Footer from "../components/footer.vue";
 import OrdersDisplay from "../components/OrdersDisplay.vue";
 import { mapGetters } from "vuex";
+import OrderDetails from "../components/OrderDetails.vue";
 
 export default {
-  components: { OrdersDisplay },
+  components: { OrdersDisplay, OrderDetails },
   computed: {
-    ...mapGetters(["getUser", "getName", "getOrders"])
+    ...mapGetters([
+      "getUser",
+      "getName",
+      "getOrders",
+      "getCurOrderBeeingViewed"
+    ])
   },
   created() {
     console.log(this.getUser);

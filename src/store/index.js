@@ -14,7 +14,8 @@ export default new Vuex.Store({
     updateRes: "",
     jwt: "",
     curHover: "",
-    error: ""
+    error: "",
+    curOrderBeeingViewed: "-1"
   },
   getters: {
     getCartItemQntByName: state => name => {
@@ -78,30 +79,27 @@ export default new Vuex.Store({
       } else {
         let orders = [];
         for (let i = 0; i < state.user.orders.length; i++) {
-          console.log(state.user.orders[i].dateOfOrder);
-          console.log(new Date(state.user.orders[i].dateOfOrder));
-          console.log(
-            new Date(state.user.orders[i].dateOfOrder).getDate() +
-              "/" +
-              new Date(state.user.orders[i].dateOfOrder).getMonth() +
-              "/" +
-              new Date(state.user.orders[i].dateOfOrder).getFullYear()
-          );
           let curDate = new Date(state.user.orders[i].dateOfOrder);
           orders.push({
             address: state.user.orders[i].address,
             date:
+              (curDate.getDate() > 9 ? "" : "0") +
               curDate.getDate() +
               "/" +
+              (curDate.getMonth() + 1 > 9 ? "" : "0") +
               (curDate.getMonth() + 1) +
               "/" +
               curDate.getFullYear(),
             products: state.user.orders[i].products,
-            tamanho: state.user.orders[i].products.length
+            tamanho: state.user.orders[i].products.length,
+            id: i
           });
         }
         return orders;
       }
+    },
+    getCurOrderBeeingViewed: state => {
+      return state.curOrderBeeingViewed;
     }
   },
   mutations: {
@@ -155,6 +153,9 @@ export default new Vuex.Store({
     },
     setError(state, error) {
       state.error = error;
+    },
+    setCurOrderBeeingViewed(state, id) {
+      state.curOrderBeeingViewed = id;
     }
   },
   actions: {
