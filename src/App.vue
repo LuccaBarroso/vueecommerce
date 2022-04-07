@@ -3,16 +3,18 @@
     <pop-ups />
     <nav-bar />
     <router-view />
+    <Footer />
   </div>
 </template>
 
 <script>
 import PopUps from "./components/Popups.vue";
 import NavBar from "./components/NavBar.vue";
+import Footer from "./components/footer.vue";
 import { mapActions } from "vuex";
 
 export default {
-  components: { NavBar, PopUps },
+  components: { NavBar, PopUps, Footer },
   methods: {
     ...mapActions(["fetchProducts"])
   },

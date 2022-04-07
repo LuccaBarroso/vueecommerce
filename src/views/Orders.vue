@@ -9,12 +9,10 @@
         :orders="getOrders"
       />
     </div>
-    <!-- <Footer /> -->
   </div>
 </template>
 
 <script>
-// import Footer from "../components/footer.vue";
 import OrdersDisplay from "../components/OrdersDisplay.vue";
 import { mapGetters } from "vuex";
 import OrderDetails from "../components/OrderDetails.vue";
