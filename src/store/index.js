@@ -211,9 +211,6 @@ export default new Vuex.Store({
         }
       });
     },
-    // register({ commit }, data) {
-    //   api.register(data);
-    // },
     // eslint-disable-next-line no-unused-vars
     scrollToId({ commit }, id) {
       var element = document.getElementById("cart");
@@ -259,7 +256,7 @@ export default new Vuex.Store({
       api.makeOrder(getters.getJwt, data.address, data.cart).then(res => {
         if (res.status == "success") {
           commit("emptyCart");
-          dispatch("goToOrders");
+          commit("setPopup", "Success");
           dispatch("getMe");
         } else {
           commit("setError", res.message);

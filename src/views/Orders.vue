@@ -26,9 +26,6 @@ export default {
       "getOrders",
       "getCurOrderBeeingViewed"
     ])
-  },
-  created() {
-    console.log(this.getUser);
   }
 };
 </script>
