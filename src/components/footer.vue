@@ -18,6 +18,7 @@ export default {};
   width: 100%;
   height: 2.5rem;
   background-color: #1b1b1e;
+  margin: 0 auto;
   p,
   a {
     color: white;

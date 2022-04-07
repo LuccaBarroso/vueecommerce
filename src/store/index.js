@@ -73,22 +73,31 @@ export default new Vuex.Store({
       return state.user.name;
     },
     getOrders: state => {
-      console.log(state.user);
       if (!state.user.orders) {
         window.location.replace("/");
       } else {
         let orders = [];
         for (let i = 0; i < state.user.orders.length; i++) {
+          console.log(state.user.orders[i].dateOfOrder);
+          console.log(new Date(state.user.orders[i].dateOfOrder));
+          console.log(
+            new Date(state.user.orders[i].dateOfOrder).getDate() +
+              "/" +
+              new Date(state.user.orders[i].dateOfOrder).getMonth() +
+              "/" +
+              new Date(state.user.orders[i].dateOfOrder).getFullYear()
+          );
           let curDate = new Date(state.user.orders[i].dateOfOrder);
           orders.push({
             address: state.user.orders[i].address,
             date:
-              curDate.getDay() +
+              curDate.getDate() +
               "/" +
-              curDate.getMonth() +
+              (curDate.getMonth() + 1) +
               "/" +
               curDate.getFullYear(),
-            products: state.user.orders[i].products
+            products: state.user.orders[i].products,
+            tamanho: state.user.orders[i].products.length
           });
         }
         return orders;
@@ -250,6 +259,7 @@ export default new Vuex.Store({
         if (res.status == "success") {
           commit("emptyCart");
           dispatch("goToOrders");
+          dispatch("getMe");
         } else {
           commit("setError", res.message);
           commit("setPopup", "erro");

@@ -1,7 +1,7 @@
 <template>
   <div>
     <router-link
-      :to="{ name: 'Orders' }"
+      :to="{ name: this.url }"
       @mouseover="setCurHover(name)"
       @mouseleave="setCurHover('')"
       id="car"
@@ -19,6 +19,7 @@ export default {
   props: {
     icon: { type: String, required: true },
     id: { type: String, required: false },
+    url: { type: String, required: false },
     name: { type: String, required: false }
   },
   methods: {

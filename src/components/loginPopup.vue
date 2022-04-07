@@ -174,6 +174,7 @@ export default {
       background: #c4c4c4;
       padding: 2px;
       margin-right: 10%;
+      outline: none;
     }
     span {
       font-size: 14px;

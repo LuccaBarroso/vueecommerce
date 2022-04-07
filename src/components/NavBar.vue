@@ -9,7 +9,7 @@
     <div class="spa"></div>
     <p>{{ this.getCurHover }}</p>
     <nav-bar-btn
-      v-if="!isCartEmpty"
+      v-if="!isCartEmpty && !isOrders()"
       name="Cart"
       icon="shopping-cart"
       id="cart"
@@ -35,7 +35,15 @@
     <nav-bar-router
       v-if="isLogged && !isOrders()"
       name="Orders"
+      url="Orders"
       icon="box"
+      v-on:clicked="orders"
+    />
+    <nav-bar-router
+      v-if="isLogged && isOrders()"
+      name="Cart"
+      url="Home"
+      icon="shopping-cart"
       v-on:clicked="orders"
     />
   </div>

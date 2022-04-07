@@ -1,14 +1,15 @@
 <template>
-  <ul class="OrdersDisplay">
-    <li v-for="order in orders" :key="order.id">
-      <p>{{ order.date }}</p>
-      <p>{{ order.address }}</p>
-    </li>
-  </ul>
+  <div class="OrdersDisplay">
+    <div v-for="order in orders" :key="order.id">
+      <order-item :order="order" />
+    </div>
+  </div>
 </template>
 
 <script>
+import OrderItem from "./OrderItem.vue";
 export default {
+  components: { OrderItem },
   props: {
     orders: {
       type: Array,
@@ -19,6 +20,11 @@ export default {
 </script>
 
 <style scoped lang="scss">
+.OrdersDisplay {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+}
 p {
   color: white;
 }
