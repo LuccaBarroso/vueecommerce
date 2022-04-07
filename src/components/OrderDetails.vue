@@ -44,8 +44,6 @@ export default {
   },
   methods: {
     getCurOrder() {
-      console.log("cur Order");
-      console.log(this.orders[this.getCurOrderBeeingViewed]);
       return this.orders[this.getCurOrderBeeingViewed];
     },
     calcTotal() {

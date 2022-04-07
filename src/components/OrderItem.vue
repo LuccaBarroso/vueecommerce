@@ -35,7 +35,6 @@ export default {
       return this.order.id === this.getCurOrderBeeingViewed;
     },
     changeCurOrder() {
-      console.log("click");
       if (this.isCurOrder()) {
         this.setCurOrderBeeingViewed("-1");
       } else {
