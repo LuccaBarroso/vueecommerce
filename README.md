@@ -4,6 +4,9 @@ My most recent project, It's an e-commerce website in which users can register a
 
 Meu projeto mais recente, é um e-commerce onde os usuários podem se logar, registrar e fazer compras, para isso aprendi como gerar e usar JWTs. Esse foi meu primeiro projeto programando no back-end, foi uma experiência muito desafiadora, aprendi bastante com os desafios encontrados no caminho.
 
+back-end repo:
+https://github.com/LuccaBarroso/ecommerce
+
 link to online demo:
 https://bejewelled-medovik-3d6c48.netlify.app/
 
